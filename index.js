@@ -343,7 +343,11 @@ function listener(data) {
                             gett = `[${gett}]`
                         }
                         reply2 = reply2.replace("[parameter]",gett)
-                        reply2 = eval.call(this,reply2)
+                        try {
+                            reply2 = eval.call(this,reply2)
+                        } catch (e) {
+                            reply2 = e.message;
+                        }
                         reply1 = reply1.replace(/\[JS](.*?)\[\/JS]/g,reply2);
                     }
                     if (reply1.indexOf('[64]')!== -1 ) {
