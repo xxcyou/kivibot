@@ -314,7 +314,7 @@ function listener(data) {
                             return;
 
 
-                    if (reply1.indexOf('[A64]')!== -1 ) {
+                    if (reply1.indexOf('[A64]')!== -1 && reply1.indexOf('[/A64]')!== -1 ) {
                         reply1 = reply1.replace(/\[A64](.*?)\[\/A64]/g, function (word) {
                             const buff = Buffer.from(getParenthesesStr(word, "[A64]", "[/A64]")[0],'base64');
                             return  buff.toString('utf-8');
@@ -324,7 +324,7 @@ function listener(data) {
                     message01 = message01.replace(/&#93;/g,"]");
                     message01 = message01.replace(/\\n/g,"\n")
                     message01 = message01.replace(/amp;/g,"");
-                    if(reply1.indexOf("[JS]") !== -1) {
+                    if(reply1.indexOf("[JS]") !== -1 && reply1.indexOf("[/JS]") !== -1) {
                         let reply2 = getParenthesesStr(reply1,"[JS]","[/JS]")[0]
                         message1 = message01.replace(item.issue,"");
                         const title1 = message1.split(' ');
@@ -350,13 +350,13 @@ function listener(data) {
                         }
                         reply1 = reply1.replace(/\[JS](.*?)\[\/JS]/g,reply2);
                     }
-                    if (reply1.indexOf('[64]')!== -1 ) {
+                    if (reply1.indexOf('[64]')!== -1 && reply1.indexOf('[/64]')!== -1) {
                         reply1 = reply1.replace(/\[64](.*?)\[\/64]/g, function (word) {
                             const buff = Buffer.from(getParenthesesStr(word, "[64]", "[/64]")[0],'base64');
                             return  buff.toString('utf-8');
                         })
                     }
-                    if (reply1.indexOf('[I]')!== -1 ) {
+                    if (reply1.indexOf('[I]')!== -1 && reply1.indexOf('[/I]')!== -1) {
                         reply1 = reply1.replace(/\[I](.*?)\[\/I]/g,function(word){
                             return oicq_1.cqcode.image(getParenthesesStr(word,"[I]","[/I]")[0]);
                         })
@@ -366,12 +366,12 @@ function listener(data) {
                             return oicq_1.cqcode.at(Number(getParenthesesStr(word, "[A]", "[/A]")[0]));
                         })
                     }
-                    if (reply1.indexOf('[Vo]')!== -1 ) {
+                    if (reply1.indexOf('[Vo]')!== -1 && reply1.indexOf('[/Vo]')!== -1) {
                         reply1 = reply1.replace(/\[Vo](.*?)\[\/Vo]/g,function(word){
                             return oicq_1.cqcode.record(getParenthesesStr(word,"[Vo]","[/Vo]")[0]);
                         })
                     }
-                    if (reply1.indexOf('[Vi]')!== -1 ) {
+                    if (reply1.indexOf('[Vi]')!== -1 && reply1.indexOf('[/Vi]')!== -1) {
                         reply1 = reply1.replace(/\[Vi](.*?)\[\/Vi]/g,function(word){
                             const dir1 = path_1.default.join(__dirname, String("video"));
                             const filePath = path_1.default.join(dir1, `${md5.default(getParenthesesStr(word,"[Vi]","[/Vi]")[0])}`);
@@ -379,8 +379,8 @@ function listener(data) {
                             return oicq_1.cqcode.video(filePath);
                         })
                     }
-                    if (reply1.indexOf("[A]") !== -1) {
-                        reply1 = reply1.replace(/\[A]/g, function (word) {
+                    if (reply1.indexOf("[a]") !== -1) {
+                        reply1 = reply1.replace(/\[a]/g, function (word) {
                             return oicq_1.cqcode.at(Number(user_id));
                         })
                     }
@@ -388,7 +388,7 @@ function listener(data) {
                         reply1 = reply1.replace(/\[W]/g,"");
                         yield this.deleteMsg(msg_id);
                     }
-                    if(reply1.indexOf("[S]") !== -1) {
+                    if(reply1.indexOf("[S]") !== -1 && reply1.indexOf("[/S]") !== -1) {
                         let reply2 = getParenthesesStr(reply1,"[S]","[/S]")[0]
                         reply1 = reply1.replace(/\[S](.*?)\[\/S]/g,"");
                         yield this.setGroupBan(group_id, user_id, Number(reply2));
